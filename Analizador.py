@@ -13,4 +13,10 @@ Created on Tue Mar  5 11:12:34 2024
 ER = ["(0+1)*","0(11)*0"]
 
 class Analizador:
+    def __init__(self):
+        print("Constructor")
     
+    
+    
+        
+a = Analizador()
