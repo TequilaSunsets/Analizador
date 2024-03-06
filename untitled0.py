@@ -12,5 +12,34 @@ Created on Tue Mar  5 11:12:34 2024
 
 ER = ["(0+1)*","0(11)*0"]
 
-class Analizador:
+class Estado:
+    def __init__(self, id):
+        self.id = id
+        self.transiciones = {}
+
+    def agregar_transicion(self, simbolo, estado):
+        if simbolo == 'ε' and simbolo in self.transiciones:
+            return
+        elif simbolo in self.transiciones:
+            print("Ya existe una transicion con este simbolo en este estado")
+        else:
+            self.transiciones[simbolo] = [estado]
+
+class Automata:
+    def __init__(self):
+        self.estados = {}
+        self.estado_inicial = None
+        self.estado_final = None
+
+    def agregar_estado(self, id):
+        estado = Estado(id)
+        self.estados[id] = estado
+        return estado
+
+    def definir_estado_inicial(self, estado):
+        self.estado_inicial = estado
+
+    def definir_estado_final(self, estado):
+        self.estado_final = estado
+   
     
