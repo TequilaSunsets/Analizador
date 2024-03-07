@@ -43,3 +43,23 @@ class Automata:
         self.estado_final = estado
    
     
+def construir_automata:
+    automata = Automata()
+    estado_inicial = automata.agregar_estado(0)
+    estado_final = automata.agregar_estado(1)
+    automata.definir_estado_inicial(estado_inicial)
+    automata.definir_estado_final(estado_final)
+
+
+    for caracter in expresion:
+        if caracter == '(':
+            
+        elif caracter == '|':
+
+        elif caracter == '*':
+
+        elif caracter == ')':
+
+        elif caracter == '+':
+
+        
