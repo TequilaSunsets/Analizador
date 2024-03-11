@@ -74,8 +74,12 @@ def construir_automata(expresion):
             automata.definir_estado_final(nuevo_estado)
 
         elif expresion[i] == '*':
-            automata.estado_final.agregar_transicion('ε', automata.referencia.id)
-            automata.referencia.agregar_transicion('ε',automata.estado_final.id)
+            if automata.r1 == None:
+                automata.estados[automata.estado_final.id-1].agregar_transicion('ε', automata.estados[automata.referencia.id+1].id)
+                automata.referencia.agregar_transicion('ε',automata.estado_final.id)
+            else:
+                automata.r1.agregar_transicion('ε',automata.referencia.id)
+                automata.referencia.agregar_transicion('ε', automata.estado_final.id)
 
         elif expresion[i] == '|':
             automata.r1 = automata.estado_final
