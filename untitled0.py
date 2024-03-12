@@ -57,6 +57,7 @@ def construir_automata(expresion):
     automata.definir_estado_inicial(estado_inicial)
     automata.definir_estado_final(estado_final)
     automata.referencia = estado_final
+    f = -1
     
 
     for i in range(len(expresion)):
@@ -69,13 +70,25 @@ def construir_automata(expresion):
                 automata.referencia.agregar_transicion('ε',nuevo_estado.id)
                 automata.definir_estado_final(nuevo_estado)
                 automata.r1 = nuevo_estado
+                if expresion[i-1] == '|':
+                    f = 1
+                    r4 = automata.r3            
 
         elif expresion[i] == ')':
-            automata.r1 = automata.referencia
-            nuevo_estado = automata.agregar_estado(len(automata.estados))
-            automata.estado_final.agregar_transicion('ε', nuevo_estado.id)
-            automata.definir_estado_final(nuevo_estado)
-            automata.r2 = automata.estado_final
+            if f == 1:
+                automata.r1 = automata.referencia
+                nuevo_estado = automata.agregar_estado(len(automata.estados))
+                automata.estado_final.agregar_transicion('ε', nuevo_estado.id)
+                automata.definir_estado_final(nuevo_estado)
+                automata.estado_final.agregar_transicion('ε', r4.id)
+                automata.definir_estado_final(r4)
+                automata.r2 = automata.estado_final
+            else:
+                automata.r1 = automata.referencia
+                nuevo_estado = automata.agregar_estado(len(automata.estados))
+                automata.estado_final.agregar_transicion('ε', nuevo_estado.id)
+                automata.definir_estado_final(nuevo_estado)
+                automata.r2 = automata.estado_final
 
         elif expresion[i] == '*':
             automata.r1.agregar_transicion('ε', automata.r2.id)
@@ -117,7 +130,6 @@ def construir_automata(expresion):
                 nuevo_estado = automata.agregar_estado(len(automata.estados)) #Creamos un nuevo estado
                 automata.estado_final.agregar_transicion('ε',nuevo_estado.id) #Agregamos una transicion con la cadena vacia del estado final al nuevo estado
                 automata.definir_estado_final(nuevo_estado) #Definimos el nuevo estado como estado final
-            
     return automata
 
 def imprimir_automata(automata):
@@ -128,7 +140,6 @@ def imprimir_automata(automata):
     print("Alfabeto", automata.alfabeto)
 
 
-expresion = "((a|b)|a)*"
+expresion = "(ab)|(cd)"
 automata = construir_automata(expresion)
 imprimir_automata(automata)
-
