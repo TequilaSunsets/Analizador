@@ -177,8 +177,8 @@ def cadena_aceptada(automata, cadena):
     return dfs(automata.estado_inicial, 0)
 
 
-
-expresiones = ["(a|b)","1(0|1)*1","ab*"]
+cadena = "a"
+expresiones = ["(a|b)","1(0|1)*1","ab*","ab"]
 automatas = []
 
 for i in range(0,len(expresiones)):
@@ -186,7 +186,6 @@ for i in range(0,len(expresiones)):
     imprimir_automata(automatas[i])
     print()
     
-cadena = "a"
 for j in range(0, len(automatas)):
     if cadena_aceptada(automatas[j], cadena):
         print(f"La cadena '{cadena}' es aceptada por el autómata {j}.")
